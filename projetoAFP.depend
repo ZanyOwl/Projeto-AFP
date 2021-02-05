@@ -1,0 +1,18 @@
+# depslib dependency file v1.0
+1612550482 source:c:\users\utilizador\desktop\projetoafp\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<locale.h>
+	"estruturas.h"
+	"subprogramas.c"
+
+1612550350 c:\users\utilizador\desktop\projetoafp\estruturas.h
+
+1612550396 c:\users\utilizador\desktop\projetoafp\subprogramas.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<locale.h>
+	"estruturas.h"
+
