@@ -21,25 +21,20 @@ typedef struct reserva
     TipoPessoa ocupantes[OCUPANTES_MAX];
 } TipoReserva;
 
-typedef struct reservaAtual
-{
-    TipoReserva reservaCorrente; //Guarda a reserva mais recente;
-} TipoReservaAtual;
-
 typedef struct historico
 {
-    int numero[HISTORICO_MAX]; //Indica o numero da reserva, não pode passar de 3 registos;
-    TipoReserva reservaGuardada; // Guarda a reserva mais recente e puxa as outras reservas para o proximo valor. A ultima é eleminada:
+    TipoReserva reservaGuardada[HISTORICO_MAX]; //Guarda as reservas feitas. Recebe diretamente a estrutura em vez dos dados um por um, guardando assim todas as prioridade;
 } TipoHistorico;
 
 typedef struct lote
 {
     TipoReserva reservaAtual; //T-tenda; C-caravana; B-Bungalow; '\0'-vazio;
-    TipoHistorico historic0[HISTORICO_MAX];
+    TipoHistorico historico[HISTORICO_MAX];
 } TipoLote;
 
-void imprimirParque(TipoLote*);
+/*void imprimirParque(TipoLote*);*/
 TipoLote reservarLote(int, int);
+void consultarLote(int, int, TipoLote*);
 
 int main()
 {
@@ -88,7 +83,7 @@ TipoLote reservarLote(int linha, int coluna)
     scanf("%d", &ocupantes);
     if (ocupantes <= 0 || ocupantes > 6)
     {
-        printf("ERRO! Minimo numero possível de ocupantes do lote é 1 e maximo permitido é 6");
+        printf("ERRO! Minimo numero possÃ­vel de ocupantes do lote Ã© 1 e maximo permitido Ã© 6");
         scanf("%d", &ocupantes);
     }
     else
@@ -105,4 +100,17 @@ TipoLote reservarLote(int linha, int coluna)
     }
 
     return matrizLote[linha][coluna];
+}
+
+void consultarLote (int linha, int coluna, TipoLote matrizLote[][])
+{
+    printf("Reserva Atual - Alojamento: %c / Eletricidade: %d / Ocupantes: %d\n", matrizLote[linha][coluna].reservaAtual.tipoAlojamento,
+           matrizLote[linha][coluna].reservaAtual.isComEletricidade,
+           matrizLote[linha][coluna].reservaAtual.numeroDeOcupantes);
+    for (int i = 0; i < HISTORICO_MAX; i++)
+    {
+       printf("HistÃ³rico - Reserva %d - Alojamento: %c / Eletricidade: %d / Ocupantes: %d\n", i + 1, matrizLote[linha][coluna].historico.reservaGuardada[i].tipoAlojamento,
+              matrizLote[linha][coluna].historico.reservaGuardada[i].isComEletricidade,
+              matrizLote[linha][coluna].historico.reservaGuardada.numeroDeOcupantes);
+    }
 }
